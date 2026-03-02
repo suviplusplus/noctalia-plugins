@@ -54,14 +54,7 @@ PanelWindow {
         onExited: (code, status) => {
             if (code === 0) {
 
-                if (root.recording && (root.target === "record" || root.target === "recordsound")){
-                    if (root.recording) {
-                        Logger.d("ScreenShot", `bash '` + pluginApi.pluginDir + `/record.sh'`)
-                        Quickshell.execDetached(["bash", pluginApi.pluginDir + "/record.sh"])
-                        root.visible = false
-                        root.closed()
-                    }
-                }
+
 
                 Logger.d("ScreenShot", "[RegionSelector] Full Screen Shot saved to %1".arg(filename))
                 root.visible = true
@@ -105,21 +98,25 @@ PanelWindow {
         }
     }
 
-    property bool recording: false
-
     Process {
         id: checkRecordingProc
         command: ["pidof", "wf-recorder"]
         running: false
         onExited: (exitCode) => {
             if (exitCode === 0) {
-                root.recording = true
+                if (root.target === "record" || root.target === "recordsound"){
+                    Logger.d("ScreenShot", `bash '` + pluginApi.pluginDir + `/record.sh'`)
+                    Quickshell.execDetached(["bash", pluginApi.pluginDir + "/record.sh"])
+                    root.visible = false
+                    root.closed()
+                }
             }
         }
     }
 
     function startCapture() {
         checkRecordingProc.running = true
+
         if (!(root.target === "record" || root.target === "recordsound")) {
             screenshotProc.running = true
         }
