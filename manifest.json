@@ -1,12 +1,13 @@
 {
   "id": "mpd",
   "name": "MPD",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minNoctaliaVersion": "3.6.0",
   "author": "Ido Perlmuter",
   "license": "MIT",
   "repository": "https://github.com/ido50/noctalia-mpd",
   "description": "MPD plugin for Noctalia",
+  "tags": ["Bar", "Audio", "Music"],
   "entryPoints": {
     "barWidget": "BarWidget.qml",
     "panel": "Panel.qml",
