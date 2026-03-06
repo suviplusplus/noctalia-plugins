@@ -27,7 +27,7 @@ threshold using the slider.
 ## Setup (Required)
 
 This plugin requires write access to the battery threshold sysfs file. The
-included `setup_rules.sh` script configures a udev rule that grants write
+included `setup_rules.sh` script configures an udev rule that grants write
 permission to members of the `battery_ctl` group:
 
 ```bash
