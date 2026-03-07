@@ -16,7 +16,7 @@ Item {
     /***************************
     * PROPERTIES
     ***************************/
-    readonly property string wallpapersFolder: pluginApi?.pluginSettings?.wallpapersFolder || pluginApi?.manifest?.metadata?.defaultSettings?.wallpapersFolder || ""
+    readonly property string wallpapersFolder: pluginApi?.pluginSettings?.wallpapersFolder ?? pluginApi?.manifest?.metadata?.defaultSettings?.wallpapersFolder ?? ""
 
     readonly property string thumbCacheFolderPath: ImageCacheService.wpThumbDir + "video-wallpaper"
 
@@ -69,7 +69,7 @@ Item {
             readonly property int screenWidth:  modelData.width
             readonly property int screenHeight: modelData.height
 
-            readonly property string activeBackend: root.pluginApi?.pluginSettings?.activeBackend || root.pluginApi?.manifest?.metadata?.defaultSettings?.activeBackend || ""
+            readonly property string activeBackend: root.pluginApi?.pluginSettings?.activeBackend ?? root.pluginApi?.manifest?.metadata?.defaultSettings?.activeBackend ?? ""
 
             /***************************
             * FUNCTIONALITY
