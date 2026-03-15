@@ -1056,17 +1056,17 @@
     {
       "id": "weather-indicator",
       "name": "Weather Indicator",
-      "version": "1.0.10",
+      "version": "1.1.1",
       "official": false,
       "author": "Sovereign",
       "description": "Shows the current weather condition and tempurature.",
       "repository": "https://github.com/noctalia-dev/noctalia-plugins",
-      "minNoctaliaVersion": "4.3.0",
+      "minNoctaliaVersion": "4.6.8",
       "license": "MIT",
       "tags": [
         "Bar"
       ],
-      "lastUpdated": "2026-03-03T16:56:42-05:00"
+      "lastUpdated": "2026-03-15T10:09:13-04:00"
     },
     {
       "id": "weekly-calendar",
