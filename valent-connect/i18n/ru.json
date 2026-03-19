@@ -18,18 +18,15 @@
     "other-devices": "Другие устройства",
     "send-file-picker": "Выберите файл для отправки на устройство",
     "send-file": "Отправить файл",
+    "browse-device": "Просмотр файлов устройства",
     "find-device": "Найти моё устройство",
     "pair": "Сопрячь устройство",
     "unpair": "Разорвать сопряжение",
     "kdeconnect-error": {
       "no-devices": "Устройства с KDE Connect не обнаружены",
-      "unavailable-title": "Похоже, kdeconnectd не запущен!",
-      "unavailable-desc": "Убедитесь, что KDE Connect установлен в системе и служба kdeconnectd работает.",
-       "device-unavailable": "Устройство сейчас недоступно"
-    },
-    "qdbus-error": {
-      "unavailable-title": "Не удаётся найти qdbus!",
-      "unavailable-desc": "Убедитесь, что qdbus (или qdbus6 на некоторых системах) установлен в вашей системе"
+      "unavailable-title": "Valent не запущен",
+      "unavailable-desc": "Убедитесь, что приложение Valent установлено и запущено в вашей системе.",
+      "device-unavailable": "Устройство сейчас недоступно"
     }
   },
    "bar": {

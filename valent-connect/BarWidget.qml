@@ -15,8 +15,6 @@ Item {
   property string section: ""
 
   readonly property string screenName: screen ? screen.name : ""
-  property string iconColorKey: ""
-  property string textColorKey: ""
 
   readonly property var main: pluginApi?.mainInstance ?? null
 
@@ -30,8 +28,6 @@ Item {
 
     screen: root.screen
     oppositeDirection: BarService.getPillDirection(root)
-    customIconColor: Color.resolveColorKeyOptional(root.iconColorKey)
-    customTextColor: Color.resolveColorKeyOptional(root.textColorKey)
     icon: root.main?.getConnectionStateIcon(root.main?.mainDevice ?? null, root.main?.daemonAvailable ?? false) ?? "exclamation-circle"
     autoHide: false
     text: {
