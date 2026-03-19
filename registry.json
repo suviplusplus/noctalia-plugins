@@ -1182,6 +1182,22 @@
       "license": "MIT",
       "tags": [],
       "lastUpdated": "2026-01-27T08:47:06-05:00"
+    },
+    {
+      "id": "zed-provider",
+      "name": "Zed Provider",
+      "version": "1.0.0",
+      "official": false,
+      "author": "justKevv",
+      "description": "A zed provider for opening project easier using zed code editor",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "tags": [
+        "Launcher",
+        "Developer"
+      ],
+      "lastUpdated": "2026-03-19T21:07:24+08:00"
     }
   ]
 }
