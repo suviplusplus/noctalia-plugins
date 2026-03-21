@@ -27,6 +27,8 @@ Rectangle {
   property bool isEditing: editingIndex === index
   property bool confirmingDelete: false
   property string renderedContent: ""
+  readonly property real footerHeight: 28 * Style.uiScaleRatio
+  readonly property real footerActionWidth: (28 * 4 + 2 * 3) * Style.uiScaleRatio
 
   onContentChanged: updateRendered()
   onNoteColorChanged: updateRendered()
@@ -51,7 +53,7 @@ Rectangle {
     : Math.min(
         Math.max(
           100 * Style.uiScaleRatio,
-          noteContent.implicitHeight + timeRow.implicitHeight + (Style.marginM * 2) + Style.marginXS
+          noteContent.implicitHeight + footerRow.implicitHeight + (Style.marginM * 2) + Style.marginXS
         ),
         300 * Style.uiScaleRatio
       )
@@ -115,149 +117,154 @@ Rectangle {
       }
     }
 
-    // Timestamp
     RowLayout {
-      id: timeRow
+      id: footerRow
       Layout.fillWidth: true
-      visible: !cardHover.hovered
+      Layout.minimumHeight: noteCard.footerHeight
+      Layout.preferredHeight: noteCard.footerHeight
+      Layout.maximumHeight: noteCard.footerHeight
+      Layout.rightMargin: Style.marginXS
+      spacing: Style.marginXS
 
       Item { Layout.fillWidth: true }
 
-      NText {
-        text: noteCard.modifiedStr || ""
-        font.pointSize: (Style.fontSizeXS - 1) * Style.uiScaleRatio
-        color: Qt.rgba(0, 0, 0, 0.35)
-      }
-    }
-  }
+      Item {
+        id: footerRightSlot
+        Layout.alignment: Qt.AlignVCenter
+        Layout.minimumWidth: noteCard.footerActionWidth
+        Layout.preferredWidth: noteCard.footerActionWidth
+        Layout.maximumWidth: noteCard.footerActionWidth
+        Layout.fillHeight: true
 
-  // ── Hover action buttons ──
-  Item {
-    id: actionContainer
-    anchors.bottom: parent.bottom
-    anchors.right: parent.right
-    anchors.margins: Style.marginXS
-    visible: cardHover.hovered && !noteCard.isEditing && !noteCard.confirmingDelete
-    z: 100
-    width: actionRow.implicitWidth + (8 * Style.uiScaleRatio)
-    height: actionRow.implicitHeight + (8 * Style.uiScaleRatio)
-
-    opacity: cardHover.hovered ? 1.0 : 0.0
-    Behavior on opacity { NumberAnimation { duration: 200 } }
-
-    TextEdit {
-      id: hiddenCopyHelper
-      visible: false
-      text: noteCard.content
-    }
-
-    Row {
-      id: actionRow
-      anchors.centerIn: parent
-      spacing: 2
-
-      Rectangle {
-        width: 28 * Style.uiScaleRatio
-        height: 28 * Style.uiScaleRatio
-        radius: width / 2
-        color: expandBtnArea.containsMouse ? Qt.rgba(0, 0, 0, 0.12) : Qt.rgba(0, 0, 0, 0.06)
-
-        NIcon {
-          anchors.centerIn: parent
-          icon: "arrow-up-left"
-          pointSize: Style.fontSizeS
-          color: "#37474F"
+        NText {
+          id: timestampLabel
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          text: noteCard.modifiedStr || ""
+          font.pointSize: (Style.fontSizeXS - 1) * Style.uiScaleRatio
+          color: Qt.rgba(0, 0, 0, 0.35)
+          opacity: cardHover.hovered ? 0.0 : 1.0
+          Behavior on opacity { NumberAnimation { duration: 120 } }
         }
 
-        MouseArea {
-          id: expandBtnArea
-          anchors.fill: parent
-          hoverEnabled: true
-          cursorShape: Qt.PointingHandCursor
-          onClicked: noteCard.expandClicked()
-        }
-      }
-
-      Rectangle {
-        width: 28 * Style.uiScaleRatio
-        height: 28 * Style.uiScaleRatio
-        radius: width / 2
-        color: copyBtnArea.containsMouse ? Qt.rgba(0, 0, 0, 0.12) : Qt.rgba(0, 0, 0, 0.06)
-
-        NIcon {
-          id: copyIcon
-          anchors.centerIn: parent
-          icon: "copy"
-          pointSize: Style.fontSizeS
-          color: "#37474F"
+        TextEdit {
+          id: hiddenCopyHelper
+          visible: false
+          text: noteCard.content
         }
 
-        MouseArea {
-          id: copyBtnArea
-          anchors.fill: parent
-          hoverEnabled: true
-          cursorShape: Qt.PointingHandCursor
-          onClicked: {
-            hiddenCopyHelper.selectAll();
-            hiddenCopyHelper.copy();
-            hiddenCopyHelper.deselect();
-            copyIcon.icon = "copy-check"
-            resetCopyIconTimer.start();
-            ToastService.showNotice(noteCard.pluginApi?.tr("notes.copied") || "Copied to clipboard");
+        Row {
+          id: actionRow
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          spacing: 2
+          opacity: cardHover.hovered ? 1.0 : 0.0
+          enabled: cardHover.hovered
+          Behavior on opacity { NumberAnimation { duration: 120 } }
+
+          Rectangle {
+            width: 28 * Style.uiScaleRatio
+            height: 28 * Style.uiScaleRatio
+            radius: width / 2
+            color: expandBtnArea.containsMouse ? Qt.rgba(0, 0, 0, 0.12) : Qt.rgba(0, 0, 0, 0.06)
+
+            NIcon {
+              anchors.centerIn: parent
+              icon: "arrow-up-left"
+              pointSize: Style.fontSizeS
+              color: "#37474F"
+            }
+
+            MouseArea {
+              id: expandBtnArea
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: noteCard.expandClicked()
+            }
+          }
+
+          Rectangle {
+            width: 28 * Style.uiScaleRatio
+            height: 28 * Style.uiScaleRatio
+            radius: width / 2
+            color: copyBtnArea.containsMouse ? Qt.rgba(0, 0, 0, 0.12) : Qt.rgba(0, 0, 0, 0.06)
+
+            NIcon {
+              id: copyIcon
+              anchors.centerIn: parent
+              icon: "copy"
+              pointSize: Style.fontSizeS
+              color: "#37474F"
+            }
+
+            MouseArea {
+              id: copyBtnArea
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: {
+                hiddenCopyHelper.selectAll();
+                hiddenCopyHelper.copy();
+                hiddenCopyHelper.deselect();
+                copyIcon.icon = "copy-check"
+                resetCopyIconTimer.start();
+                ToastService.showNotice(noteCard.pluginApi?.tr("notes.copied") || "Copied to clipboard");
+              }
+            }
+
+            Timer {
+              id: resetCopyIconTimer
+              interval: 1500
+              onTriggered: copyIcon.icon = "copy"
+            }
+          }
+
+          Rectangle {
+            width: 28 * Style.uiScaleRatio
+            height: 28 * Style.uiScaleRatio
+            radius: width / 2
+            color: editBtnArea.containsMouse ? Qt.rgba(0, 0, 0, 0.12) : Qt.rgba(0, 0, 0, 0.06)
+
+            NIcon {
+              anchors.centerIn: parent
+              icon: "pencil"
+              pointSize: Style.fontSizeS
+              color: "#37474F"
+            }
+
+            MouseArea {
+              id: editBtnArea
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: noteCard.editClicked()
+            }
+          }
+
+          Rectangle {
+            width: 28 * Style.uiScaleRatio
+            height: 28 * Style.uiScaleRatio
+            radius: width / 2
+            color: deleteBtnArea.containsMouse ? Qt.rgba(0.8, 0, 0, 0.15) : Qt.rgba(0, 0, 0, 0.06)
+
+            NIcon {
+              anchors.centerIn: parent
+              icon: "trash"
+              pointSize: Style.fontSizeS
+              color: "#C62828"
+            }
+
+            MouseArea {
+              id: deleteBtnArea
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: noteCard.confirmingDelete = true
+            }
           }
         }
-
-        Timer {
-          id: resetCopyIconTimer
-          interval: 1500
-          onTriggered: copyIcon.icon = "copy"
-        }
       }
-
-      Rectangle {
-        width: 28 * Style.uiScaleRatio
-        height: 28 * Style.uiScaleRatio
-        radius: width / 2
-        color: editBtnArea.containsMouse ? Qt.rgba(0, 0, 0, 0.12) : Qt.rgba(0, 0, 0, 0.06)
-
-        NIcon {
-          anchors.centerIn: parent
-          icon: "pencil"
-          pointSize: Style.fontSizeS
-          color: "#37474F"
-        }
-
-        MouseArea {
-          id: editBtnArea
-          anchors.fill: parent
-          hoverEnabled: true
-          cursorShape: Qt.PointingHandCursor
-          onClicked: noteCard.editClicked()
-        }
-      }
-
-      Rectangle {
-        width: 28 * Style.uiScaleRatio
-        height: 28 * Style.uiScaleRatio
-        radius: width / 2
-        color: deleteBtnArea.containsMouse ? Qt.rgba(0.8, 0, 0, 0.15) : Qt.rgba(0, 0, 0, 0.06)
-
-        NIcon {
-          anchors.centerIn: parent
-          icon: "trash"
-          pointSize: Style.fontSizeS
-          color: "#C62828"
-        }
-
-        MouseArea {
-          id: deleteBtnArea
-          anchors.fill: parent
-          hoverEnabled: true
-          cursorShape: Qt.PointingHandCursor
-          onClicked: noteCard.confirmingDelete = true
-        }
-      }
-
     }
   }
 
