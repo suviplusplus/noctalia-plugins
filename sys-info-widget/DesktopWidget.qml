@@ -20,7 +20,7 @@ DraggableDesktopWidget {
     property string distroVal: "..."
     property string kernelVal: "..."
     property string uptimeVal: "..."
-
+	// Changed font size to L
     // --- Data Fetching ---
     Process {
         id: distroProc
@@ -62,8 +62,6 @@ DraggableDesktopWidget {
         color: Color.mSurface
         opacity: 0.85
         radius: Style.radiusM 
-        border.color: Color.mOutlineVariant
-        border.width: Style.borderS
 
         ColumnLayout {
             anchors.fill: parent
@@ -73,19 +71,20 @@ DraggableDesktopWidget {
             GridLayout {
                 columns: 2
                 Layout.fillWidth: true
+                Layout.alignment: Qt.AlignVCenter
                 rowSpacing: Style.marginS
 
                 // Row 1: Distribution
                 NText { 
                     text: pluginApi?.tr("widget.distribution")
                     color: Color.mOnSurfaceVariant
-                    font.pointSize: Style.fontSize * widgetScale
+                    font.pointSize: Style.fontSizeL * widgetScale
                 }
                 NText { 
                     text: root.distroVal
                     color: Color.mOnSurface
                     font.bold: true
-                    font.pointSize: Style.fontSize * widgetScale
+                    font.pointSize: Style.fontSizeL * widgetScale
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignRight 
                 }
@@ -94,13 +93,13 @@ DraggableDesktopWidget {
                 NText { 
                     text: pluginApi?.tr("widget.kernel")
                     color: Color.mOnSurfaceVariant
-                    font.pointSize: Style.fontSize * widgetScale
+                    font.pointSize: Style.fontSizeL * widgetScale
                 }
                 NText { 
                     text: root.kernelVal
                     color: Color.mOnSurface
                     font.bold: true
-                    font.pointSize: Style.fontSize * widgetScale
+                    font.pointSize: Style.fontSizeL * widgetScale
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignRight
                     elide: Text.ElideRight
@@ -110,13 +109,13 @@ DraggableDesktopWidget {
                 NText { 
                     text: pluginApi?.tr("widget.uptime")
                     color: Color.mOnSurfaceVariant
-                    font.pointSize: Style.fontSize * widgetScale
+                    font.pointSize: Style.fontSizeL * widgetScale
                 }
                 NText { 
                     text: root.uptimeVal
                     color: Color.mOnSurface
                     font.bold: true
-                    font.pointSize: Style.fontSize * widgetScale
+                    font.pointSize: Style.fontSizeL * widgetScale
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignRight 
                 }
