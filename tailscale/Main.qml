@@ -57,9 +57,9 @@ Item {
   // Toggle via: qs -c noctalia-shell ipc call plugin:tailscale setMockPeers
   property bool useMockData: false
   readonly property var mockPeerList: [
-    { "HostName": "mock-linux-box", "DNSName": "mock-linux-box.tail1234.ts.net.", "TailscaleIPs": ["100.64.0.1"], "Online": true,  "OS": "linux", "Tags": [] },
-    { "HostName": "mock-mac",       "DNSName": "mock-mac.tail1234.ts.net.",       "TailscaleIPs": ["100.64.0.2"], "Online": true,  "OS": "macos", "Tags": [] },
-    { "HostName": "mock-win-pc",    "DNSName": "mock-win-pc.tail1234.ts.net.",    "TailscaleIPs": ["100.64.0.3"], "Online": false, "OS": "windows", "Tags": [] }
+    { "HostName": "mock-linux-box", "DNSName": "mock-linux-box.tail1234.ts.net.", "TailscaleIPs": ["100.64.0.1"], "Online": true,  "OS": "linux",   "Tags": [], "ExitNodeOption": true,  "ExitNode": false },
+    { "HostName": "mock-mac",       "DNSName": "mock-mac.tail1234.ts.net.",       "TailscaleIPs": ["100.64.0.2"], "Online": true,  "OS": "macos",   "Tags": [], "ExitNodeOption": false, "ExitNode": false },
+    { "HostName": "mock-win-pc",    "DNSName": "mock-win-pc.tail1234.ts.net.",    "TailscaleIPs": ["100.64.0.3"], "Online": false, "OS": "windows", "Tags": [], "ExitNodeOption": false, "ExitNode": false }
   ]
 
   readonly property var peerList: useMockData ? mockPeerList : _realPeerList
@@ -112,7 +112,9 @@ Item {
                   "TailscaleIPs": ipv4s,
                   "Online": peer.Online,
                   "OS": peer.OS,
-                  "Tags": peer.Tags || []
+                  "Tags": peer.Tags || [],
+                  "ExitNodeOption": peer.ExitNodeOption || false,
+                  "ExitNode": peer.ExitNode || false
                 })
               }
             }
@@ -168,6 +170,39 @@ Item {
 
       statusDelayTimer.start()
     }
+  }
+
+  Process {
+    id: exitNodeProcess
+    onExited: function(exitCode, exitStatus) {
+      if (exitCode === 0) {
+        var message = root.lastExitNodeAction === "set" ?
+          pluginApi?.tr("toast.exit-node-enabled") :
+          pluginApi?.tr("toast.exit-node-disabled")
+        ToastService.showNotice(
+          pluginApi?.tr("toast.title"),
+          message,
+          "globe"
+        )
+      }
+      statusDelayTimer.start()
+    }
+  }
+
+  property string lastExitNodeAction: ""
+
+  function setExitNode(ip) {
+    if (!root.tailscaleInstalled || !root.tailscaleRunning) return
+    root.lastExitNodeAction = "set"
+    exitNodeProcess.command = ["tailscale", "set", "--exit-node=" + ip]
+    exitNodeProcess.running = true
+  }
+
+  function clearExitNode() {
+    if (!root.tailscaleInstalled || !root.tailscaleRunning) return
+    root.lastExitNodeAction = "clear"
+    exitNodeProcess.command = ["tailscale", "set", "--exit-node="]
+    exitNodeProcess.running = true
   }
 
   Timer {
