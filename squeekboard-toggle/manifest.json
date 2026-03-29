@@ -10,8 +10,7 @@
   "tags": [
     "System",
     "Bar",
-    "Utility",
-    "Niri"
+    "Utility"
   ],
   "entryPoints": {
     "main": "Main.qml",
