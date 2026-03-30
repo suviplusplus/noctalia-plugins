@@ -27,6 +27,7 @@
       "school": 0,
       "showCountdown": true,
       "showElapsed": false,
+      "hidePrayerName": false,
       "showNotifications": true,
       "playAzan": false,
       "azanFile": "azan1.mp3",

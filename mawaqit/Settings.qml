@@ -44,6 +44,7 @@ ColumnLayout {
   property int    valueSchool:            cfg.school            ?? defaults.school            ?? 0
   property bool   valueShowCountdown:     cfg.showCountdown     ?? defaults.showCountdown     ?? true
   property bool   valueShowElapsed:       cfg.showElapsed       ?? defaults.showElapsed       ?? false
+  property bool   valueHidePrayerName:    cfg.hidePrayerName    ?? defaults.hidePrayerName    ?? false
   property bool   valueShowNotifications: cfg.showNotifications ?? defaults.showNotifications ?? true
   property bool   valuePlayAzan:          cfg.playAzan          ?? defaults.playAzan          ?? false
   property string valueAzanFile:          cfg.azanFile          ?? defaults.azanFile          ?? "azan1.mp3"
@@ -225,6 +226,14 @@ ColumnLayout {
     onToggled: checked => root.valueShowElapsed = checked
   }
 
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.hidePrayerName.label")
+    description: pluginApi?.tr("settings.hidePrayerName.desc")
+    checked: root.valueHidePrayerName
+    onToggled: checked => root.valueHidePrayerName = checked
+  }
+
   NDivider { Layout.fillWidth: true }
 
   // ── Notifications ─────────────────────────────────────────────────────────
@@ -332,6 +341,7 @@ ColumnLayout {
     pluginApi.pluginSettings.method            = root.valueMethod
     pluginApi.pluginSettings.showCountdown     = root.valueShowCountdown
     pluginApi.pluginSettings.showElapsed       = root.valueShowElapsed
+    pluginApi.pluginSettings.hidePrayerName    = root.valueHidePrayerName
     pluginApi.pluginSettings.showNotifications = root.valueShowNotifications
     pluginApi.pluginSettings.playAzan          = root.valuePlayAzan
     pluginApi.pluginSettings.azanFile          = root.valueAzanFile

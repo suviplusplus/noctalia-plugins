@@ -118,6 +118,10 @@
     "showElapsed": {
       "label": "Show elapsed time after prayer",
       "desc": "After a prayer begins, count up (+) for up to 1 hour. Capped at the time remaining to the next prayer. Replaces the countdown during that window."
+    },
+    "hidePrayerName": {
+      "label": "Hide prayer name in bar",
+      "desc": "Show only the time or countdown in the bar widget, without the prayer name label."
     }
   },
   "error": {

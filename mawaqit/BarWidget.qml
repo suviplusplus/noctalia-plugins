@@ -27,6 +27,8 @@ Item {
 
   readonly property bool showCountdown:  cfg.showCountdown  ?? defaults.showCountdown  ?? true
   readonly property bool showElapsed:    cfg.showElapsed    ?? defaults.showElapsed    ?? false
+  readonly property bool hidePrayerName: cfg.hidePrayerName ?? defaults.hidePrayerName ?? false
+
   readonly property bool use12h:   Settings.data.location.use12hourFormat
   readonly property bool isJumuah: new Date().getDay() === 5
 
@@ -104,17 +106,21 @@ Item {
     if (!prayerTimings || !nextPrayerName) return "—"
 
     if (isElapsed) {
+      if (hidePrayerName) return elapsedStr
       return `${lastPrayerLabel} ${elapsedStr}`
     }
 
     if (prayerNow) {
+      if (hidePrayerName) return pluginApi?.tr("widget.now")
       return `${nextPrayerLabel} · ${pluginApi?.tr("widget.now")}`
     }
 
     if (showCountdown && secondsToNext > 0) {
+      if (hidePrayerName) return countdownStr
       return `${nextPrayerLabel} ${countdownStr}`
     }
 
+    if (hidePrayerName) return nextPrayerTimeStr
     return `${nextPrayerLabel} ${nextPrayerTimeStr}`
   }
 
@@ -122,11 +128,20 @@ Item {
     if (isLoading && !prayerTimings) return "..."
     if (hasError) return "!"
     if (!prayerTimings || !nextPrayerName) return "—"
+
+    if (isElapsed)    return hidePrayerName ? elapsedStr    : lastPrayerLabel
+    if (hidePrayerName) {
+      if (prayerNow)                         return pluginApi?.tr("widget.now")
+      if (showCountdown && secondsToNext > 0) return countdownStr
+      return nextPrayerTimeStr
+    }
     return nextPrayerLabel
   }
 
   readonly property string verticalLine2: {
     if (!prayerTimings || !nextPrayerName) return ""
+    if (isElapsed)     return hidePrayerName ? "" : elapsedStr
+    if (hidePrayerName) return ""       // value already on line 1
     if (prayerNow)     return pluginApi?.tr("widget.now")
     if (showCountdown && secondsToNext > 0) return countdownStr
     return nextPrayerTimeStr
