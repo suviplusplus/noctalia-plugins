@@ -49,18 +49,22 @@ jobs:
           h_priority="[(H)]($PR_NUMBER 'High priority, this needs to be fixed for the PR to be merged')"
 
           function print_line() {
+            check_file_title
+
             local priority=$1
             local index=$2
             local comment=$3
             local code_line=$4
-            printf -- '\n- %s Line %d: %s\n```qml\n%s\n```' "$priority" "$index" "$comment" "$code_line"
+            comment_body+=$(printf -- '\n- %s Line %d: %s\n```qml\n%s\n```' "$priority" "$index" "$comment" "$code_line")
           }
 
           function print_missing_property() {
+            check_file_title
+
             local priority=$1
             local property=$2
             local code_line=$3
-            printf -- '\n- %s Missing required property `%s`. For example:\n```qml\n%s\n```' "$priority" "$property" "$code_line"
+            comment_body+=$(printf -- '\n- %s Missing required property `%s`. For example:\n```qml\n%s\n```' "$priority" "$property" "$code_line")
           }
 
           title_added=false
@@ -117,89 +121,93 @@ jobs:
             hasAllowAttach=false
           }
 
+          function print_required_properties() {
+            if [ "$inBarWidget" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+              if [ "$hasScreen" = false ]; then
+                print_missing_property "$h_priority" 'screen' 'property ShellScreen screen'
+              fi
+              if [ "$hasWidgetId" = false ]; then
+                print_missing_property "$h_priority" 'widgetId' 'property string widgetId: ""'
+              fi
+              if [ "$hasSection" = false ]; then
+                print_missing_property "$h_priority" 'section' 'property string section: ""'
+              fi
+              if [ "$hasSectionWidgetIndex" = false ]; then
+                print_missing_property "$h_priority" 'sectionWidgetIndex' 'property int sectionWidgetIndex: -1'
+              fi
+              if [ "$hasSectionWidgetsCount" = false ]; then
+                print_missing_property "$h_priority" 'sectionWidgetsCount' 'property int sectionWidgetsCount: 0'
+              fi
+            fi
+
+            if [ "$inDesktopWidget" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+            fi
+
+            if [ "$inDesktopWidgetSettings" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+              if [ "$hasWidgetSettings" = false ]; then
+                print_missing_property "$h_priority" 'widgetSettings' 'property var widgetSettings: null'
+              fi
+            fi
+
+            if [ "$inControlCenterWidget" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+              if [ "$hasScreen" = false ]; then
+                print_missing_property "$h_priority" 'screen' 'property ShellScreen screen'
+              fi
+            fi
+
+            if [ "$inLauncherProvider" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+              if [ "$hasLauncher" = false ]; then
+                print_missing_property "$h_priority" 'launcher' 'property var launcher: ""'
+              fi
+              if [ "$hasName" = false ]; then
+                print_missing_property "$h_priority" 'name' 'property string name: "Example"'
+              fi
+            fi
+
+            if [ "$inMain" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+            fi
+
+            if [ "$inPanel" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+              if [ "$hasGeometryPlaceholder" = false ]; then
+                print_missing_property "$h_priority" 'geometryPlaceholder' 'readonly property var geometryPlaceholder: panelContainer'
+              fi
+              if [ "$hasAllowAttach" = false ]; then
+                print_missing_property "$h_priority" 'allowAttach' 'readonly property bool allowAttach: true'
+              fi
+            fi
+
+            if [ "$inSettings" = true ]; then
+              if [ "$hasPluginApi" = false ]; then
+                print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null'
+              fi
+            fi
+          }
+
 
           while IFS= read -r line; do
             if echo "$line" | grep -E "^diff --git" >/dev/null; then
-              if [ "$inBarWidget" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-                if [ "$hasScreen" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'screen' 'property ShellScreen screen')
-                fi
-                if [ "$hasWidgetId" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'widgetId' 'property string widgetId: ""')
-                fi
-                if [ "$hasSection" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'section' 'property string section: ""')
-                fi
-                if [ "$hasSectionWidgetIndex" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'sectionWidgetIndex' 'property int sectionWidgetIndex: -1')
-                fi
-                if [ "$hasSectionWidgetsCount" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'sectionWidgetsCount' 'property int sectionWidgetsCount: 0')
-                fi
-              fi
-
-              if [ "$inDesktopWidget" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-              fi
-
-              if [ "$inDesktopWidgetSettings" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-                if [ "$hasWidgetSettings" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'widgetSettings' 'property var widgetSettings: null')
-                fi
-              fi
-
-              if [ "$inControlCenterWidget" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-                if [ "$hasScreen" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'screen' 'property ShellScreen screen')
-                fi
-              fi
-
-              if [ "$inLauncherProvider" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-                if [ "$hasLauncher" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'launcher' 'property var launcher: ""')
-                fi
-                if [ "$hasName" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'name' 'property string name: "Example"')
-                fi
-              fi
-
-              if [ "$inMain" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-              fi
-
-              if [ "$inPanel" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-                if [ "$hasGeometryPlaceholder" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'geometryPlaceholder' 'readonly property var geometryPlaceholder: panelContainer')
-                fi
-                if [ "$hasAllowAttach" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'allowAttach' 'readonly property bool allowAttach: true')
-                fi
-              fi
-
-              if [ "$inSettings" = true ]; then
-                if [ "$hasPluginApi" = false ]; then
-                  comment_body+=$(print_missing_property "$h_priority" 'pluginApi' 'property var pluginApi: null')
-                fi
-              fi
+              print_required_properties
 
               reset_required_properties
 
@@ -236,30 +244,25 @@ jobs:
               echo "Current line index reset: $line_index"
             else
               if echo "$line" | grep -E "(border(\.width)?|spacing|pointSize|radius|margin(s)?): [0-9]+" >/dev/null; then
-                check_file_title
-                comment_body+=$(print_line "$h_priority" "$line_index" 'Do not use hardcoded values, always prefer to use the `Style` singleton instead' "$line")
+                print_line "$h_priority" "$line_index" 'Do not use hardcoded values, always prefer to use the `Style` singleton instead' "$line"
                 issues=$((issues + 1))
               fi
               if echo "$line" | grep -E "console\.log" >/dev/null; then
-                check_file_title
-                comment_body+=$(print_line "$h_priority" "$line_index" 'Do not use `console.log`, always prefer to use the `Logger` singleton instead' "$line")
+                print_line "$h_priority" "$line_index" 'Do not use `console.log`, always prefer to use the `Logger` singleton instead' "$line"
                 issues=$((issues + 1))
               fi
               if echo "$line" | grep -E "^(Text|Button|Checkbox|Switch) *\{" >/dev/null; then
-                check_file_title
-                comment_body+=$(print_line "$h_priority" "$line_index" 'Always prefer to use noctalia-widgets instead of qml widgets to keep it consistent with the shell. For example instead of `Text`, use `NText`' "$line")
+                print_line "$h_priority" "$line_index" 'Always prefer to use noctalia-widgets instead of qml widgets to keep it consistent with the shell. For example instead of `Text`, use `NText`' "$line"
                 issues=$((issues + 1))
               fi
               if echo "$line" | grep -E "applyUiScale: *false" >/dev/null; then
                 if [[ "$file_title" != *BarWidget.qml ]]; then
-                  check_file_title
-                  comment_body+=$(print_line "$l_priority" "$line_index" 'The `applyUiScale: false` would make it so that the component does not support ui scaling. Always check if this is the correct behaviour you want when changing the ui scale!' "$line")
+                  print_line "$l_priority" "$line_index" 'The `applyUiScale: false` would make it so that the component does not support ui scaling. Always check if this is the correct behaviour you want when changing the ui scale!' "$line"
                   issues=$((issues + 1))
                 fi
               fi
               if echo "$line" | grep -E "pluginApi\??\.tr\((.)*\) *(\?\?|\|\|)" >/dev/null; then
-                check_file_title
-                comment_body+=$(print_line "$l_priority" "$line_index" 'When it comes to translations there is no need for fallback values. From: `pluginApi?.tr("example") || "value"`. To: `pluginApi?.tr("example")`' "$line")
+                print_line "$l_priority" "$line_index" 'When it comes to translations there is no need for fallback values. From: `pluginApi?.tr("example") || "value"`. To: `pluginApi?.tr("example")`' "$line"
                 issues=$((issues + 1))
               fi
 
@@ -348,6 +351,9 @@ jobs:
               line_index=$((line_index + 1))
             fi
           done <<<"$diff_changes"
+
+          # Print any required properties not printed on a new file found.
+          print_required_properties
 
           if [[ "$issues" -ne 0 ]]; then
             gh pr comment "$PR_NUMBER" --body "$comment_body"
