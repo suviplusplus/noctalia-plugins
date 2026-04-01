@@ -41,8 +41,6 @@ Item {
     }
 
     // --- Squeekboard availability: live D-Bus monitor ---
-    // Watches all NameOwnerChanged signals and filters for sm.puri.OSK0 in QML.
-    // Avoids the arg0= match rule which is not universally supported.
     Process {
         id: squeekboardMonitor
         command: ["dbus-monitor", "--session",
