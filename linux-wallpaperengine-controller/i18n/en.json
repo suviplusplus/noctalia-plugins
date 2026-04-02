@@ -28,7 +28,7 @@
     }
   },
   "panel": {
-    "title": "Linux WallpaperEngine Controller",
+    "title": "Linux-WallpaperEngine Controller",
     "installHint": "Install command example: yay -S linux-wallpaperengine-git",
     "screen": {
       "label": "Target screen",

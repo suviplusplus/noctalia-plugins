@@ -28,7 +28,7 @@
     }
   },
   "panel": {
-    "title": "Linux WallpaperEngine 控制器",
+    "title": "Linux-WallpaperEngine 控制器",
     "installHint": "安裝範例：yay -S linux-wallpaperengine-git",
     "screen": {
       "label": "目標螢幕",

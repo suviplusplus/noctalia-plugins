@@ -441,7 +441,7 @@ Item {
           Layout.minimumHeight: Layout.preferredHeight
           radius: Style.radiusL
           color: Color.mSurface
-          border.width: 1
+          border.width: Style.borderS
           border.color: Qt.alpha(Color.mOutline, 0.22)
 
           ColumnLayout {
@@ -459,7 +459,7 @@ Item {
               }
 
               NText {
-                text: "Linux-WallpaperEngine"
+                text: pluginApi?.tr("panel.title")
                 font.pointSize: Style.fontSizeL
                 font.weight: Font.Bold
                 color: Color.mOnSurface
@@ -566,7 +566,7 @@ Item {
                 Layout.preferredHeight: 42 * Style.uiScaleRatio
                 radius: Style.radiusL
                 color: Qt.alpha(Color.mSurfaceVariant, 0.42)
-                border.width: 1
+                border.width: Style.borderS
                 border.color: Qt.alpha(Color.mOutline, 0.45)
 
                 RowLayout {
@@ -614,7 +614,7 @@ Item {
                 Layout.preferredHeight: 42 * Style.uiScaleRatio
                 radius: Style.radiusL
                 color: Qt.alpha(Color.mSurfaceVariant, 0.42)
-                border.width: 1
+                border.width: Style.borderS
                 border.color: Qt.alpha(Color.mOutline, 0.45)
 
                 RowLayout {
@@ -663,7 +663,7 @@ Item {
           Layout.fillHeight: true
           radius: Style.radiusL
           color: Color.mSurface
-          border.width: 1
+          border.width: Style.borderS
           border.color: Qt.alpha(Color.mOutline, 0.2)
 
           ColumnLayout {
@@ -839,7 +839,7 @@ Item {
                 visible: root.selectedWallpaperData !== null
                 radius: Style.radiusL
                 color: Qt.alpha(Color.mSurfaceVariant, 0.35)
-                border.width: 1
+                border.width: Style.borderS
                 border.color: Qt.alpha(Color.mOutline, 0.35)
                 clip: true
 
@@ -1115,7 +1115,7 @@ Item {
     height: Math.min(244 * Style.uiScaleRatio, filterList.contentHeight + 2 * Style.marginS)
     radius: Style.radiusL
     color: Qt.alpha(Color.mSurface, 0.96)
-    border.width: 1
+    border.width: Style.borderS
     border.color: Qt.alpha(Color.mOutline, 0.45)
     z: 901
 
@@ -1168,7 +1168,7 @@ Item {
     height: Math.min(244 * Style.uiScaleRatio, sortList.contentHeight + 2 * Style.marginS)
     radius: Style.radiusL
     color: Qt.alpha(Color.mSurface, 0.96)
-    border.width: 1
+    border.width: Style.borderS
     border.color: Qt.alpha(Color.mOutline, 0.45)
     z: 901
 
