@@ -24,9 +24,13 @@ QtObject {
         if (timedOut)             return "critical"
         if (samples.length === 0) return "unknown"
         const a = avg10m >= 0 ? avg10m : (avg30m >= 0 ? avg30m : avg60m)
-        if (a < 0)                         return "unknown"
-        if (a < root.thresholdGood)        return "good"
-        if (a < root.thresholdWarning)     return "warning"
+        return rttToStatus(a)
+    }
+
+    function rttToStatus(rtt) {
+        if (rtt < 0)                         return "unknown"
+        if (rtt < root.thresholdGood)        return "good"
+        if (rtt < root.thresholdWarning)     return "warning"
         return "critical"
     }
 

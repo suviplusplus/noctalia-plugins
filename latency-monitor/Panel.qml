@@ -52,13 +52,6 @@ Item {
         return Color.resolveColorKey(_colorizeStatus(status))
     }
 
-    function rttColor(rtt) {
-        if (rtt < 0)                  return Color.mOnSurface
-        if (rtt < thresholdGood)      return Color.mPrimary
-        if (rtt < thresholdWarning)   return Color.mTertiary
-        return Color.mError
-    }
-
     function _threshY(thresh, maxVal, h) {
         if (maxVal <= 0 || h <= 0) return -1
         const pad      = maxVal * 0.12                  // curvePadding
@@ -106,97 +99,131 @@ Item {
                 }
             }
 
-            Flickable {
-                Layout.fillWidth: true
-                implicitHeight:   tabBar.implicitHeight
-                contentWidth:     tabBar.implicitWidth
-                clip:             true
-                flickableDirection: Flickable.HorizontalFlick
+            Repeater {
+                model: hosts
 
-                NTabBar {
-                    id: tabBar
-                    color: "transparent"
-                    currentIndex: root._activeHost
+                delegate: RowLayout {
+                    id: rootHostLayout
+                    required property int index
+                    required property var modelData
 
-                    Repeater {
-                        model: root.hosts
-                        delegate: NTabButton {
-                            required property int index
-                            required property var modelData
-                            text:     modelData.name
-                            tabIndex: index
-                            checked:  tabBar.currentIndex === index
-                            onClicked: { root._activeHost = index }
-                        }
+                    Layout.fillWidth: true
+
+                    NButton {
+                        text:        modelData.name
+                        fontSize:    Style.fontSizeXS
+                        color:       root._activeHost == index ? Color.mPrimary : Color.mSecondary
+                        tooltipText: modelData.address
+                        onClicked:   { root._activeHost = index }
+                        opacity:     index === root._activeHost ? 1.0 : 0.5
                     }
-                }
-            }
+                    Item { Layout.fillWidth: true }
 
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: Style.marginS
-
-                Repeater {
-                    model: [
-                        { labelKey: "panel.timings.10m",  avg: root._host?.avg10m  ?? -1 },
-                        { labelKey: "panel.timings.30m",  avg: root._host?.avg30m  ?? -1 },
-                        { labelKey: "panel.timings.1h",   avg: root._host?.avg60m  ?? -1 },
-                        { labelKey: "panel.timings.last", avg: root._host?.lastRtt ?? -1 },
-                    ]
-
-                    delegate: Rectangle {
-                        required property var modelData
-
+                    RowLayout {
                         Layout.fillWidth: true
-                        implicitHeight:   statCol.implicitHeight + Style.marginS * 2
-                        radius:           Style.radiusM
-                        color:            Color.mSurfaceVariant
-                        border.color:     Qt.alpha(Color.mOnSurface, 0.08)
-                        border.width:     1
+                        spacing: Style.marginS
 
-                        readonly property real   _avg:    modelData.avg
-                        readonly property bool   _hasVal: _avg >= 0
-                        readonly property color  _col:    root.rttColor(_avg)
+                        Repeater {
+                            model: [
+                                { labelKey: "panel.timings.1h",   avg: rootHostLayout.modelData.avg60m  ?? -1 },
+                                { labelKey: "panel.timings.30m",  avg: rootHostLayout.modelData.avg30m  ?? -1 },
+                                { labelKey: "panel.timings.10m",  avg: rootHostLayout.modelData.avg10m  ?? -1 },
+                                { labelKey: "panel.timings.last", avg: rootHostLayout.modelData.lastRtt ?? -1 },
+                            ]
 
-                        ColumnLayout {
-                            id: statCol
-                            anchors { fill: parent; margins: Style.marginS }
-                            spacing: Style.marginS
+                            delegate: Rectangle {
+                                id: tagRoot
+                                required property var modelData
+                                readonly property int rtt:   Math.round(modelData.avg)
+                                readonly property var accentColor: root.statusColor(rootHostLayout.modelData.rttToStatus(rtt))
 
-                            NText {
-                                text:  parent.parent._hasVal ? Math.round(parent.parent._avg) + " ms" : "—"
-                                pointSize: Style.fontSizeL
-                                font.weight: Font.Bold
-                                color: parent.parent._col
-                                Layout.alignment: Qt.AlignHCenter
-                            }
-                            NText {
-                                text:      pluginApi?.tr(modelData?.labelKey)
-                                pointSize: Style.fontSizeXS
-                                color:     Color.mSecondary
-                                Layout.alignment: Qt.AlignHCenter
+                                implicitWidth:  timeoutLabel.implicitWidth + Style.marginM * 2
+                                implicitHeight: timeoutLabel.implicitHeight + Style.marginXS * 2
+
+                                radius:       Style.radiusS
+                                color:        Qt.alpha(Color.mError, 0.12)
+                                border.color: accentColor
+                                border.width: Style.marginXXS
+                                opacity:      rootHostLayout.index === root._activeHost ? 1.0 : 0.5
+
+                                NText {
+                                    id:        timeoutLabel
+                                    anchors.centerIn: parent
+                                    text:      `${rtt}ms`
+                                    pointSize: Style.fontSizeXS
+                                    color:     accentColor
+                                }
+
+                                property var tooltipText: pluginApi?.tr(modelData.labelKey)
+                                property bool hovered: false
+                                signal entered
+                                signal exited
+
+                                MouseArea {
+                                    id: mouseArea
+                                    anchors.fill: parent
+                                    enabled: tagRoot.enabled
+                                    hoverEnabled: true
+                                    cursorShape: tagRoot.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+
+                                    onEntered: {
+                                        tagRoot.hovered = tagRoot.enabled ? true : false;
+                                        tagRoot.entered();
+                                        if (tagRoot.hovered && tagRoot.tooltipText && (!Array.isArray(tagRoot.tooltipText) || tagRoot.tooltipText.length > 0)) {
+                                            TooltipService.show(tagRoot, tagRoot.tooltipText);
+                                        }
+                                    }
+                                    onExited: {
+                                        tagRoot.hovered = false;
+                                        tagRoot.exited();
+                                        if (tagRoot.tooltipText && (!Array.isArray(tagRoot.tooltipText) || tagRoot.tooltipText.length > 0)) {
+                                            TooltipService.hide();
+                                        }
+                                    }
+                                    onCanceled: {
+                                        tagRoot.hovered = false;
+                                        if (tagRoot.tooltipText && (!Array.isArray(tagRoot.tooltipText) || tagRoot.tooltipText.length > 0)) {
+                                            TooltipService.hide();
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            }
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                spacing: Style.marginXS
-
-                NTabBar {
-                    id: windowBar
-                    currentIndex: root._windowMinutes === 10 ? 0 : root._windowMinutes === 30 ? 1 : 2
-                    color: "transparent"
-
-                    NTabButton { text: pluginApi?.tr("panel.timings.10m"); tabIndex: 0; checked: root._windowMinutes === 10;  onClicked: root._windowMinutes = 10  }
-                    NTabButton { text: pluginApi?.tr("panel.timings.30m"); tabIndex: 1; checked: root._windowMinutes === 30;  onClicked: root._windowMinutes = 30  }
-                    NTabButton { text: pluginApi?.tr("panel.timings.1h");  tabIndex: 2; checked: root._windowMinutes === 60;  onClicked: root._windowMinutes = 60  }
                 }
             }
 
             NDivider { Layout.fillWidth: true; opacity: 0.4 }
+
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: Style.marginXS
+
+                NTabBar {
+                    id: windowBar
+                    Layout.fillWidth: true
+                    currentIndex: root._windowMinutes === 10 ? 0 : root._windowMinutes === 30 ? 1 : 2
+                    color: "transparent"
+
+                    Repeater {
+                        model: [
+                            { label: pluginApi?.tr("panel.timings.10m"), value: 10  },
+                            { label: pluginApi?.tr("panel.timings.30m"), value: 30  },
+                            { label: pluginApi?.tr("panel.timings.1h"),  value: 60  },
+                        ]
+
+                        delegate: NTabButton {
+                            required property var modelData
+                            required property int index
+
+                            text: modelData.label ?? ""
+                            tabIndex: index
+                            checked: root._windowMinutes === modelData.value
+                            onClicked: root._windowMinutes = modelData.value
+                        }
+                    }
+                }
+            }
 
             Item {
                 Layout.fillWidth: true
@@ -342,47 +369,6 @@ Item {
                         }
                     }
                 }
-            }
-
-            NDivider { Layout.fillWidth: true; opacity: 0.4 }
-            Repeater {
-              model: hosts
-
-              delegate: RowLayout {
-                required property int index
-                required property var modelData
-
-                Layout.fillWidth: true
-
-                NText {
-                    text:      modelData.name
-                    pointSize: Style.fontSizeXS
-                    color:     Color.mSecondary
-                }
-                NText {
-                    text:      modelData.address
-                    pointSize: Style.fontSizeXXS
-                    color:     Color.mSecondary
-                    opacity:   0.6
-                }
-                Item { Layout.fillWidth: true }
-                Rectangle {
-                    implicitWidth:  timeoutLabel.implicitWidth + Style.marginM * 2
-                    implicitHeight: timeoutLabel.implicitHeight + Style.marginXS * 2
-                    radius:       Style.radiusS
-                    color:        Qt.alpha(Color.mError, 0.12)
-                    border.color: root.statusColor(modelData.status)
-                    border.width: Style.marginXXS
-
-                    NText {
-                        id:        timeoutLabel
-                        anchors.centerIn: parent
-                        text:      `${modelData.lastRtt}ms`
-                        pointSize: Style.fontSizeXS
-                        color:     root.statusColor(modelData.status)
-                    }
-                }
-              }
             }
         }
     }
