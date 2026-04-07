@@ -10,7 +10,7 @@
   "tags": [
     "Bar",
     "Panel",
-    "System"
+    "Theming"
   ],
   "entryPoints": {
     "main": "Main.qml",
