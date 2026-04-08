@@ -167,16 +167,17 @@ Item {
 
     Process {
         id: songPositionProc
-        command: ["playerctl", "position", "-F"]
+        command: ["playerctl", "--player", root.currentPlayer, "position"]
         running: false
 
         stdout: SplitParser {
             onRead: data => {
                 const pos = root.currentPosition
                 root.currentPosition = parseFloat(data)
-                // Logger.d("songPositionProc", "old:", pos)
-                // Logger.d("songPositionProc", "new:", root.currentPosition)
-                // Logger.d("songPositionProc", "loading:", root.isLoading)
+                Logger.d("songPositionProc", "raw:", data)
+                Logger.d("songPositionProc", "old:", pos)
+                Logger.d("songPositionProc", "new:", root.currentPosition)
+                Logger.d("songPositionProc", "loading:", root.isLoading)
 
                 if (root.isLoading) {
                     root.isLoading = false
