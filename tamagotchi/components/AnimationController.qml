@@ -9,13 +9,13 @@ Item {
     property int spriteH: 40
     property int spriteW: 40
     readonly property var _imageMap: ({
-        "idle": "../assets/sapo_idle.png",
-        "sleeping": "../assets/sapo_sleeping.png",
-        "sad": "../assets/sapo_sad.png",
-        "tired": "../assets/sapo_tired.png",
-        "hungry": "../assets/sapo_hungry.png",
-        "angry": "../assets/sapo_angry.png"
-    })
+            "idle": "../assets/sapo_idle.png",
+            "sleeping": "../assets/sapo_sleeping.png",
+            "sad": "../assets/sapo_sad.png",
+            "tired": "../assets/sapo_tired.png",
+            "hungry": "../assets/sapo_hungry.png",
+            "angry": "../assets/sapo_angry.png"
+        })
     readonly property var _spriteStates: ["idle", "sad", "hungry", "tired", "angry"]
 
     implicitWidth: frameW
@@ -59,5 +59,4 @@ Item {
         visible: pluginApi.mainInstance.isDirty && pluginApi.mainInstance.petState != "angry" && root._spriteStates.includes(pluginApi.mainInstance.petState)
         z: 1
     }
-
 }

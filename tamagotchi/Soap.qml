@@ -32,9 +32,7 @@ Rectangle {
                 duration: 120
                 easing.type: Easing.OutBack
             }
-
         }
-
     }
 
     Rectangle {
@@ -86,7 +84,6 @@ Rectangle {
                 to: 0
                 duration: 200
             }
-
         }
 
         ScriptAction {
@@ -97,7 +94,5 @@ Rectangle {
                 root.y = root._restY;
             }
         }
-
     }
-
 }

@@ -1,0 +1,135 @@
+No running instances for "/etc/xdg/quickshell/noctalia-shell/shell.qml"
+Dead instances:
+ - bpqki6dt
+ - pp3hpi6dt
+ - po4xti6dt
+ - 775ivi6dt
+ - 1i5uvi6dt
+ - u166xi6dt
+ - cb6cxi6dt
+ - uy6uzi6dt
+ - b5917j6dt
+[32m  INFO[0m: Launching config: "/etc/xdg/quickshell/noctalia-shell/shell.qml"
+[32m  INFO[0m: Shell ID: "271772659c0a416a1568f9aff43a625e" Path ID "271772659c0a416a1568f9aff43a625e"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/1sc4dj6dt/log.qslog"
+Inconsistent value (1) for DRI_PRIME. Should be < 1 (GPU devices count). Using: 0
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mHyprlandServic[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m          I18n[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m          I18n[0m Loading "es" (locale: "es-Latn-AR")
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m         Shell[0m ---------------------------
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m         Shell[0m Noctalia Hello!
+[32m  INFO[0m: Configuration Loaded
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m      Settings[0m Settings loaded
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m      Settings[0m adapter.settingsVersion: 57
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m          I18n[0m Loaded translations for "es"
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin states from: /home/tetra/.config/noctalia/plugins.json
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Scanning plugin folder: /home/tetra/.config/noctalia/plugins
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m         Icons[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    Brightness[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mDesktopWidgetR[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    BarService[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m       Network[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    SystemStat[0m Service started (polling deferred until a consumer registers).
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m         Shell[0m ---------------------------
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m     Wallpaper[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    ImageCache[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mAppThemeServic[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m   ColorScheme[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mDarkModeServic[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m     Wallpaper[0m Starting scan for HDMI-A-1 in /home/tetra/Pictures/Wallpapers recursive: false
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m      Location[0m Service started
+[33m  WARN[97m quickshell.dbus.objectmanager[0m: Failed to create DBusObjectManagerInterface for "org.bluez" "/" : QDBusError("org.freedesktop.DBus.Error.ServiceUnknown", "The name is not activatable")
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m     Bluetooth[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m IdleInhibitor[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m   IdleService[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m   HostService[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m        GitHub[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m     Supporter[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mCustomButtonIP[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    IPCService[0m Service started
+[33m  WARN[97m quickshell.dbus[0m: Could not launch service org.freedesktop.UPower.PowerProfiles: QDBusError(org.freedesktop.DBus.Error.ServiceUnknown, The name is not activatable)
+[33m  WARN[97m quickshell.service.powerprofiles[0m: Could not start PowerProfilesDaemon. The PowerProfiles service will not work.
+[33m  WARN[0m: Cannot enable background effect as ext-background-effect-v1 is not supported by the current compositor.
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m      Location[0m Coordinates ready
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m   HostService[0m Detected Arch Linux
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m   HostService[0m Looking for logo icon: archlinux-logo
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m        GitHub[0m Checking cache - timestamp: 1775658294 now: 1775659145 age: 14 minutes
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m        GitHub[0m Cache is fresh, using cached data (age: 14 minutes)
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m     Supporter[0m Cache is fresh, using cached data
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mKeyboardLayout[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin: attack-shark - Attack Shark
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin: catwalk - Catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin: network-indicator - Network Indicator
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin: notes-scratchpad - Notes Scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin: tamagochi - Tamagochi
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin: todo - Todo List
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m Loaded plugin: update-count - Update Count
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mPluginRegistry[0m All plugin manifests loaded. Total plugins: 7
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Initializing plugin system
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Found 7 enabled plugins: ["attack-shark","catwalk","network-indicator","notes-scratchpad","tamagochi","todo","update-count"]
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loading plugin: attack-shark
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loading plugin: catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loading plugin: network-indicator
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loading plugin: notes-scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loading plugin: tamagochi
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loading plugin: todo
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loading plugin: update-count
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    SystemStat[0m Found k10temp CPU thermal sensor at /sys/class/hwmon/hwmon1
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    NightLight[0m Wlsunset started: wlsunset,-t,4000,-T,6500,-l,-31.375,-L,-64.25,-d,900
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m    ImageCache[0m ImageMagick available
+[33m  WARN[97m qml[0m: [36m[20260408-113905][0m [35m     Wallpaper[0m Scan failed for HDMI-A-1 exit code: 1 (directory might not exist)
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m   HostService[0m resolved hostname tetra
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m   ColorScheme[0m Applying color scheme: Catppuccin
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mAppThemeServic[0m Generating templates from predefined color scheme
+[33m  WARN[0m: file:///home/tetra/.config/noctalia/plugins/attack-shark/Main.qml?v=0: Setting initial properties failed: Main does not have a property called pluginApi
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded Main.qml for plugin: attack-shark
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mBarWidgetRegis[0m Registered plugin widget: plugin:attack-shark
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded bar widget for plugin: attack-shark
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Plugin loaded: attack-shark
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded Main.qml for plugin: catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mBarWidgetRegis[0m Registered plugin widget: plugin:catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded bar widget for plugin: catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mDesktopWidgetR[0m Registered plugin widget: plugin:catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded desktop widget for plugin: catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Plugin loaded: catwalk
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mBarWidgetRegis[0m Registered plugin widget: plugin:network-indicator
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded bar widget for plugin: network-indicator
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Plugin loaded: network-indicator
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded Main.qml for plugin: notes-scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mBarWidgetRegis[0m Registered plugin widget: plugin:notes-scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded bar widget for plugin: notes-scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mControlCenterW[0m Registered plugin widget: plugin:notes-scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded control center widget for plugin: notes-scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Plugin loaded: notes-scratchpad
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded Main.qml for plugin: tamagochi
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35mBarWidgetRegis[0m Registered plugin widget: plugin:tamagochi
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Loaded bar widget for plugin: tamagochi
+[32m  INFO[97m qml[0m: [36m[20260408-113905][0m [35m PluginService[0m Plugin loaded: tamagochi
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Loaded Main.qml for plugin: todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35mBarWidgetRegis[0m Registered plugin widget: plugin:todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Loaded bar widget for plugin: todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35mDesktopWidgetR[0m Registered plugin widget: plugin:todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Loaded desktop widget for plugin: todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35mControlCenterW[0m Registered plugin widget: plugin:todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Loaded control center widget for plugin: todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Plugin loaded: todo
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Loaded Main.qml for plugin: update-count
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35mBarWidgetRegis[0m Registered plugin widget: plugin:update-count
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Loaded bar widget for plugin: update-count
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Plugin loaded: update-count
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m All plugins loaded
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Refreshing available plugins
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m   UpdateCount[0m Initialization finished. Detected updater: pacman.
+[32m  INFO[97m qml[0m: [36m[20260408-113906][0m [35m   UpdateCount[0m Updates available: 0
+[31m ERROR[97m qml[0m: [36m[20260408-113906][0m [35m PluginService[0m Empty response from Noctalia Plugins
+[32m  INFO[97m qml[0m: [36m[20260408-113907][0m [35m  HooksService[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113907][0m [35m          Font[0m Service started
+[32m  INFO[97m qml[0m: [36m[20260408-113907][0m [35m UpdateService[0m Version: v4.6.7
+[32m  INFO[97m qml[0m: [36m[20260408-113907][0m [35m          Font[0m Loaded 720 fonts, 86 monospace
+[32m  INFO[97m qml[0m: [36m[20260408-113908][0m [35mPluginPanelSlo[0m Loading panel for plugin: tamagochi in slot 1
+[32m  INFO[97m qt.multimedia.gstreamer[0m: Using Qt multimedia with GStreamer version: "GStreamer 1.28.1"
+[32m  INFO[97m qml[0m: [36m[20260408-113908][0m [35mPluginPanelSlo[0m Panel loaded for: tamagochi
+[33m  WARN[97m qt.core.qfuture.continuations[0m: Parent future has 2 result(s), but only the first result will be handled in the continuation.
+[32m  INFO[97m qml[0m: [36m[20260408-113948][0m [35m  SoundService[0m QtMultimedia found - sound playback enabled
+[32m  INFO[97m qml[0m: [36m[20260408-114458][0m [35mPluginPanelSlo[0m Loading panel for plugin: tamagochi in slot 1
+[32m  INFO[97m qml[0m: [36m[20260408-114458][0m [35mPluginPanelSlo[0m Panel loaded for: tamagochi

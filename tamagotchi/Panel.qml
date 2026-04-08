@@ -58,15 +58,12 @@ Item {
                     Layout.fillWidth: true
                 }
 
-                Soap {
-                }
+                Soap {}
 
                 Item {
                     Layout.fillWidth: true
                 }
-
             }
-
         }
 
         Ball {
@@ -77,7 +74,5 @@ Item {
             pluginApi: root.pluginApi
             Layout.alignment: Qt.AlignHCenter
         }
-
     }
-
 }

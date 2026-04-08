@@ -33,9 +33,7 @@ Rectangle {
                 duration: 120
                 easing.type: Easing.OutBack
             }
-
         }
-
     }
 
     Rectangle {
@@ -59,7 +57,7 @@ Rectangle {
             root._restY = root.y;
             if (pluginApi && pluginApi.mainInstance) {
                 if (pluginApi.mainInstance.petState === "sleeping")
-                    return ;
+                    return;
 
                 pluginApi.mainInstance.eating = true;
             }
@@ -97,7 +95,6 @@ Rectangle {
                 to: 0
                 duration: 200
             }
-
         }
 
         ScriptAction {
@@ -108,7 +105,5 @@ Rectangle {
                 root.y = root._restY;
             }
         }
-
     }
-
 }
