@@ -26,13 +26,13 @@ ColumnLayout {
 
     NComboBox {
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.dial-style-label") ?? "Dial Marks Style"
-        description: root.pluginApi?.tr("desktopWidgetSettings.dial-style-description") ?? "Style of the hour and minute markers"
+        label: root.pluginApi?.tr("desktopWidgetSettings.dial-style-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.dial-style-description")
         model: [
-            { "key": "dots", "name": root.pluginApi?.tr("desktopWidgetSettings.style-dots") ?? "Dots" },
-            { "key": "numbers", "name": root.pluginApi?.tr("desktopWidgetSettings.style-numbers") ?? "Numbers" },
-            { "key": "full", "name": root.pluginApi?.tr("desktopWidgetSettings.style-full") ?? "Full lines" },
-            { "key": "none", "name": root.pluginApi?.tr("desktopWidgetSettings.style-none") ?? "None" }
+            { "key": "dots", "name": root.pluginApi?.tr("desktopWidgetSettings.style-dots") },
+            { "key": "numbers", "name": root.pluginApi?.tr("desktopWidgetSettings.style-numbers") },
+            { "key": "full", "name": root.pluginApi?.tr("desktopWidgetSettings.style-full") },
+            { "key": "none", "name": root.pluginApi?.tr("desktopWidgetSettings.style-none") }
         ]
         currentKey: root.valueDialStyle
         onSelected: key => {
@@ -43,13 +43,13 @@ ColumnLayout {
 
     NComboBox {
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.hour-hand-label") ?? "Hour Hand Style"
-        description: root.pluginApi?.tr("desktopWidgetSettings.hour-hand-description") ?? "Visual style of the hour hand"
+        label: root.pluginApi?.tr("desktopWidgetSettings.hour-hand-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.hour-hand-description")
         model: [
-            { "key": "fill", "name": root.pluginApi?.tr("desktopWidgetSettings.style-fill") ?? "Fill" },
-            { "key": "hollow", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hollow") ?? "Hollow" },
-            { "key": "classic", "name": root.pluginApi?.tr("desktopWidgetSettings.style-classic") ?? "Classic" },
-            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") ?? "Hide" }
+            { "key": "fill", "name": root.pluginApi?.tr("desktopWidgetSettings.style-fill") },
+            { "key": "hollow", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hollow") },
+            { "key": "classic", "name": root.pluginApi?.tr("desktopWidgetSettings.style-classic") },
+            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") }
         ]
         currentKey: root.valueHourHandStyle
         onSelected: key => {
@@ -60,14 +60,14 @@ ColumnLayout {
 
     NComboBox {
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.minute-hand-label") ?? "Minute Hand Style"
-        description: root.pluginApi?.tr("desktopWidgetSettings.minute-hand-description") ?? "Visual style of the minute hand"
+        label: root.pluginApi?.tr("desktopWidgetSettings.minute-hand-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.minute-hand-description")
         model: [
-            { "key": "bold", "name": root.pluginApi?.tr("desktopWidgetSettings.style-bold") ?? "Bold" },
-            { "key": "medium", "name": root.pluginApi?.tr("desktopWidgetSettings.style-medium") ?? "Medium" },
-            { "key": "thin", "name": root.pluginApi?.tr("desktopWidgetSettings.style-thin") ?? "Thin" },
-            { "key": "classic", "name": root.pluginApi?.tr("desktopWidgetSettings.style-classic") ?? "Classic" },
-            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") ?? "Hide" }
+            { "key": "bold", "name": root.pluginApi?.tr("desktopWidgetSettings.style-bold") },
+            { "key": "medium", "name": root.pluginApi?.tr("desktopWidgetSettings.style-medium") },
+            { "key": "thin", "name": root.pluginApi?.tr("desktopWidgetSettings.style-thin") },
+            { "key": "classic", "name": root.pluginApi?.tr("desktopWidgetSettings.style-classic") },
+            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") }
         ]
         currentKey: root.valueMinuteHandStyle
         onSelected: key => {
@@ -78,13 +78,13 @@ ColumnLayout {
     
     NComboBox {
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.second-hand-label") ?? "Second Hand Style"
-        description: root.pluginApi?.tr("desktopWidgetSettings.second-hand-description") ?? "Visual style of the second hand"
+        label: root.pluginApi?.tr("desktopWidgetSettings.second-hand-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.second-hand-description")
         model: [
-            { "key": "dot", "name": root.pluginApi?.tr("desktopWidgetSettings.style-dot") ?? "Dot" },
-            { "key": "classic", "name": root.pluginApi?.tr("desktopWidgetSettings.style-classic") ?? "Classic" },
-            { "key": "line", "name": root.pluginApi?.tr("desktopWidgetSettings.style-line") ?? "Line" },
-            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") ?? "Hide" }
+            { "key": "dot", "name": root.pluginApi?.tr("desktopWidgetSettings.style-dot") },
+            { "key": "classic", "name": root.pluginApi?.tr("desktopWidgetSettings.style-classic") },
+            { "key": "line", "name": root.pluginApi?.tr("desktopWidgetSettings.style-line") },
+            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") }
         ]
         currentKey: root.valueSecondHandStyle
         onSelected: key => {
@@ -95,11 +95,11 @@ ColumnLayout {
 
     NComboBox {
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.date-style-label") ?? "Date Style"
-        description: root.pluginApi?.tr("desktopWidgetSettings.date-style-description") ?? "How to display the current date"
+        label: root.pluginApi?.tr("desktopWidgetSettings.date-style-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.date-style-description")
         model: [
-            { "key": "bubble", "name": root.pluginApi?.tr("desktopWidgetSettings.style-bubble") ?? "Bubbles" },
-            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") ?? "Hide" }
+            { "key": "bubble", "name": root.pluginApi?.tr("desktopWidgetSettings.style-bubble") },
+            { "key": "hide", "name": root.pluginApi?.tr("desktopWidgetSettings.style-hide") }
         ]
         currentKey: root.valueDateStyle
         onSelected: key => {
@@ -116,8 +116,8 @@ ColumnLayout {
 
     NToggle {
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.show-hour-marks-label") ?? "Show Inner Hour Marks"
-        description: root.pluginApi?.tr("desktopWidgetSettings.show-hour-marks-description") ?? "Display an inner set of hour markings"
+        label: root.pluginApi?.tr("desktopWidgetSettings.show-hour-marks-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.show-hour-marks-description")
         checked: root.valueShowHourMarks
         onToggled: checked => {
             root.valueShowHourMarks = checked;
@@ -129,8 +129,8 @@ ColumnLayout {
     NValueSlider {
         property real _value: root.valueBackgroundOpacity * 100
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.background-opacity-label") ?? "Background Opacity"
-        description: root.pluginApi?.tr("desktopWidgetSettings.background-opacity-description") ?? "Adjust the transparency of the cookie shape"
+        label: root.pluginApi?.tr("desktopWidgetSettings.background-opacity-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.background-opacity-description")
         value: _value
         text: Math.round(_value) + "%"
         from: 0
@@ -149,8 +149,8 @@ ColumnLayout {
     NValueSlider {
         property int _value: root.valueSides
         Layout.fillWidth: true
-        label: root.pluginApi?.tr("desktopWidgetSettings.cookie-shape-label") ?? "Cookie Shape Corners"
-        description: root.pluginApi?.tr("desktopWidgetSettings.cookie-shape-description") ?? "Number of sine wave edges"
+        label: root.pluginApi?.tr("desktopWidgetSettings.cookie-shape-label")
+        description: root.pluginApi?.tr("desktopWidgetSettings.cookie-shape-description")
         value: _value
         text: String(_value)
         from: 3
