@@ -124,18 +124,18 @@
     {
       "id": "calendar-widget",
       "name": "Desktop Calendar",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "official": false,
       "author": "Simon",
       "description": "Monthly calendar with today highlighted.",
       "repository": "https://github.com/noctalia-dev/noctalia-plugins",
-      "minNoctaliaVersion": "4.6.6",
+      "minNoctaliaVersion": "4.5.0",
       "license": "MIT",
       "tags": [
         "Desktop",
         "Utility"
       ],
-      "lastUpdated": "2026-04-20T16:57:44+03:00"
+      "lastUpdated": "2026-04-21T01:10:11+07:00"
     },
     {
       "id": "calibre-provider",
