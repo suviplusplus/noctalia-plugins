@@ -19,6 +19,7 @@ ColumnLayout {
   property string valueColorWarning: cfg.colorWarning ?? defaults.colorWarning
   property string valueColorCritical: cfg.colorCritical ?? defaults.colorCritical
   property var valueHosts: cfg.hosts ?? defaults.hosts
+  property bool valueAnimations: cfg.animations ?? defaults.animations
 
   spacing: Style.marginL
 
@@ -251,6 +252,14 @@ ColumnLayout {
     onToggled: checked => root.valueShowHostName = checked
   }
 
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.animations.label")
+    description: pluginApi?.tr("settings.animations.desc")
+    checked: root.valueAnimations
+    onToggled: checked => root.valueAnimations = checked
+  }
+
   RowLayout {
     NLabel {
       label: pluginApi?.tr("settings.colorGood.label")
@@ -299,6 +308,7 @@ ColumnLayout {
     pluginApi.pluginSettings.colorGood = root.valueColorGood;
     pluginApi.pluginSettings.colorWarning = root.valueColorWarning;
     pluginApi.pluginSettings.colorCritical = root.valueColorCritical;
+    pluginApi.pluginSettings.animations = root.valueAnimations;
     pluginApi.saveSettings();
     Logger.d("LatencyMonitor", "Settings saved");
   }

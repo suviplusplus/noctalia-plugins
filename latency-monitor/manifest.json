@@ -1,7 +1,7 @@
 {
   "id": "latency-monitor",
   "name": "Latency Monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minNoctaliaVersion": "4.1.0",
   "repository": "https://github.com/noctalia-dev/noctalia-plugins",
   "author": "Borhaneddine GUEMIDI <guemidiborhane@gmail.com>",
@@ -40,7 +40,8 @@
       "barHost": "worst",
       "colorGood": "#00ff7f",
       "colorWarning": "#f1fa8c",
-      "colorCritical": "#ff5555"
+      "colorCritical": "#ff5555",
+      "animations": true
     }
   }
 }

@@ -49,6 +49,10 @@
       "label": "Show host name in bar",
       "desc": "Prefix the latency value with the worst host's name."
     },
+    "animations": {
+      "label": "Show pulse animations",
+      "desc": "Pulsate on tick, faster when warning or critical"
+    },
     "barHost": {
       "label": "Bar host",
       "desc": "Which host's latency is shown in the bar.",

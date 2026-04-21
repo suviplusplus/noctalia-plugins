@@ -16,6 +16,7 @@ Item {
   readonly property string colorGood: cfg.colorGood ?? defaults.colorGood ?? "#00ff7f"
   readonly property string colorWarning: cfg.colorWarning ?? defaults.colorWarning ?? "#f1fa8c"
   readonly property string colorCritical: cfg.colorCritical ?? defaults.colorCritical ?? "#ff5555"
+  readonly property bool animations: cfg.animations ?? defaults.animations ?? true
 
   readonly property var hostsCfg: cfg.hosts ?? defaults.hosts ?? [
     {

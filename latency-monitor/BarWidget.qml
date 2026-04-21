@@ -68,6 +68,38 @@ Item {
     }
   }
 
+  readonly property int cycleTotal: {
+    const base_ms = (mainInstance?.intervalSeconds || 5) * 1000;
+    let animation_factor = 1;
+
+    switch (root.status) {
+    case "critical":
+      animation_factor = 10;
+      break;
+    case "warning":
+      animation_factor = 5;
+      break;
+    default:
+      animation_factor = 1;
+      break;
+    }
+
+    return Math.round(base_ms / animation_factor);
+  }
+
+  readonly property int pulseSpeed: {
+    switch (root.status) {
+    case "critical":
+      return Style.animationFast;
+    case "warning":
+      return Style.animationNormal;
+    default:
+      return Style.animationSlowest;
+    }
+  }
+
+  readonly property int pauseDuration: Math.max(0, cycleTotal - (pulseSpeed * 2))
+
   readonly property string tooltipText: {
     if (hosts.length === 0)
       return pluginApi?.tr("widget.tooltip.noData");
@@ -127,15 +159,21 @@ Item {
         Layout.leftMargin: Style.marginS
 
         SequentialAnimation on opacity {
-          running: root.status === "critical"
+          running: mainInstance?.animations || root.status == "critical"
           loops: Animation.Infinite
+
           NumberAnimation {
             to: 0.25
-            duration: 600
+            duration: root.pulseSpeed
+            easing.type: Easing.OutQuad
           }
           NumberAnimation {
             to: 1.0
-            duration: 600
+            duration: root.pulseSpeed
+            easing.type: Easing.InQuad
+          }
+          PauseAnimation {
+            duration: root.pauseDuration
           }
         }
       }
