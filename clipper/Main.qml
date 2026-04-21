@@ -350,6 +350,42 @@ Item {
               }
   }
 
+  // Helper: encode a UTF-8 string to base64 using the non-deprecated Qt.btoa(array-like) overload.
+  // Qt.btoa(string) is deprecated since Qt 6.8 and its output differs for non-ASCII characters
+  // (Latin-1 byte-per-char vs proper UTF-8). This helper encodes to UTF-8 bytes first.
+  function stringToBase64(str) {
+    var s = String(str);
+    var bytes = [];
+    for (var i = 0; i < s.length; i++) {
+      var code = s.charCodeAt(i);
+      if (code < 0x80) {
+        bytes.push(code);
+      } else if (code < 0x800) {
+        bytes.push(0xC0 | (code >> 6));
+        bytes.push(0x80 | (code & 0x3F));
+      } else if (code >= 0xD800 && code <= 0xDBFF && i + 1 < s.length) {
+        // UTF-16 surrogate pair → Unicode code point
+        var high = code;
+        var low = s.charCodeAt(i + 1);
+        if (low >= 0xDC00 && low <= 0xDFFF) {
+          var cp = 0x10000 + ((high - 0xD800) << 10) + (low - 0xDC00);
+          bytes.push(0xF0 | (cp >> 18));
+          bytes.push(0x80 | ((cp >> 12) & 0x3F));
+          bytes.push(0x80 | ((cp >> 6) & 0x3F));
+          bytes.push(0x80 | (cp & 0x3F));
+          i++;
+        } else {
+          bytes.push(0xEF, 0xBF, 0xBD); // U+FFFD replacement character for lone surrogate
+        }
+      } else {
+        bytes.push(0xE0 | (code >> 12));
+        bytes.push(0x80 | ((code >> 6) & 0x3F));
+        bytes.push(0x80 | (code & 0x3F));
+      }
+    }
+    return Qt.btoa(new Uint8Array(bytes));
+  }
+
   // Function to save pinned items to file
   function savePinnedFile() {
     const data = {
@@ -358,9 +394,9 @@ Item {
     const json = JSON.stringify(data, null, 2);
 
     // Use base64 encoding to safely pass JSON through shell
-    // Qt.btoa() produces valid base64 (A-Z, a-z, 0-9, +, /, =) - no shell metacharacters
+    // stringToBase64() produces valid base64 (A-Z, a-z, 0-9, +, /, =) - no shell metacharacters
     // File path is constant, not user-controlled
-    const base64 = Qt.btoa(json);
+    const base64 = stringToBase64(json);
     const filePath = Quickshell.env("HOME") + "/.config/noctalia/plugins/clipper/pinned.json";
 
     Quickshell.execDetached(["sh", "-c", `echo "${base64}" | base64 -d > "${filePath}"`]);
@@ -531,7 +567,7 @@ Item {
     const filePath = Quickshell.env("HOME") + "/Documents/" + fileName;
 
     // Use base64 encoding to safely pass content through shell
-    const base64 = Qt.btoa(note.content || "");
+    const base64 = stringToBase64(note.content || "");
     Quickshell.execDetached(["sh", "-c", `echo "${base64}" | base64 -d > "${filePath}"`]);
 
     // Store exported filename - append to list so all exports are tracked
@@ -575,7 +611,7 @@ Item {
     const json = JSON.stringify(note, null, 2);
 
     // Use base64 encoding to safely pass JSON through shell
-    const base64 = Qt.btoa(json);
+    const base64 = stringToBase64(json);
     Quickshell.execDetached(["sh", "-c", `echo "${base64}" | base64 -d > "${filePath}"`]);
   }
 
@@ -662,12 +698,9 @@ Item {
       const mimeType = matches[1];
       const base64Data = matches[2];
 
-      // Decode base64 to binary in JavaScript (no shell commands)
-      const binaryStr = Qt.atob(base64Data);
-      const bytes = new Uint8Array(binaryStr.length);
-      for (let i = 0; i < binaryStr.length; i++) {
-        bytes[i] = binaryStr.charCodeAt(i);
-      }
+      // Decode base64 to binary bytes (no shell commands).
+      // Qt.atob() with array-like overload returns a Uint8Array directly (non-deprecated form).
+      const bytes = new Uint8Array(Qt.atob(base64Data));
 
       // Copy binary data directly via Process stdin
       copyPinnedImageProc.running = true;

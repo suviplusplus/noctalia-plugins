@@ -1,5 +1,14 @@
 # Clipper Plugin - Comprehensive Changelog
 
+## Version 2.4.1 (2026-04-21)
+
+### Fix Qt.btoa deprecation warnings
+
+- Replaced three deprecated `Qt.btoa(string)` calls in `Main.qml` (`savePinnedFile`, `exportNoteCard`, `saveNoteCard`) with a new `stringToBase64(str)` helper that encodes the string to UTF-8 bytes as a `Uint8Array` and passes it to the non-deprecated `Qt.btoa(array-like)` overload.
+- Simplified the matching `Qt.atob()` call: the array-like overload returns a `Uint8Array` directly, so the intermediate string + `charCodeAt` loop was removed.
+- Side benefit: `exportNoteCard()` now writes properly encoded UTF-8 `.txt` files — previously, notes containing non-ASCII characters (Polish, emoji, Cyrillic, etc.) were written with Latin-1 byte encoding.
+- No behavior change for existing `pinned.json` / `notecards/*.json` files: `JSON.stringify` already escapes non-ASCII to `\uNNNN`, so the base64 output is effectively identical for ASCII-safe JSON.
+
 ## Version 2.4.0 (2026-04-20)
 
 ### Live-Preview Settings, Panel Size Controls, i18n Cleanup
