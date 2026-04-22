@@ -1199,7 +1199,7 @@
     {
       "id": "parallax-wallpaper",
       "name": "Parallax Wallpaper",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "official": false,
       "author": "Qholin",
       "description": "A customizable parallax effect for the wallpaper based on the active workspace.",
@@ -1209,7 +1209,7 @@
       "tags": [
         "Desktop"
       ],
-      "lastUpdated": "2026-03-12T22:34:41+03:00"
+      "lastUpdated": "2026-04-21T17:26:58+02:00"
     },
     {
       "id": "polkit-agent",
