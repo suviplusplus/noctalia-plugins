@@ -9,10 +9,6 @@ import Quickshell.Io
 ColumnLayout {
     id: root
 
-    Component.onCompleted: {
-        pluginApi.mainInstance.refreshAccessToken()
-    }
-
     Process {
         id: callbackServer
         command: ["python3", pluginApi.pluginDir + "/callback_server.py", pluginApi.pluginSettings.callbackPort.toString()]
@@ -89,6 +85,7 @@ ColumnLayout {
 
     Component.onCompleted: {
         Logger.i("spotify-player", "Settings UI loaded")
+        pluginApi.mainInstance.refreshAccessToken()
     }
 
     // Text input
@@ -161,7 +158,6 @@ ColumnLayout {
             radius: Style.radiusS
             color: Color.mSurface
             border.color: Color.mSurfaceVariant
-            border.width: 2
         }
 
         text: root.availableDevices
