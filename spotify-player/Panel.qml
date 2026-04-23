@@ -33,7 +33,7 @@ Item {
 
     Process {
         id: readShuffleState
-        command: ["curl", "https://api.spotify.com/v1/me/player", "-H", "Authorization: Bearer " + pluginApi.pluginSettings.accessToken]
+        command: ["curl", "https://api.spotify.com/v1/me/player", "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken]
 
         stdout: StdioCollector {
             onStreamFinished: {
@@ -49,13 +49,13 @@ Item {
     Process {
         id: shuffle
         command: ["curl", "-X", "PUT", "https://api.spotify.com/v1/me/player/shuffle?state=" + shuffleState.toString() 
-            + ((pluginApi.pluginSettings.playerId !== "") ? "&device_id=" + pluginApi.pluginSettings.playerId : ""),
-            "-H", "Authorization: Bearer " + pluginApi.pluginSettings.accessToken]
+            + ((pluginApi?.pluginSettings?.playerId !== "") ? "&device_id=" + pluginApi?.pluginSettings?.playerId : ""),
+            "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken]
 
         onExited: (code, status) => {
             if (closeAfterShuffle) {
                 closeAfterShuffle = false
-                pluginApi.closePanel(pluginApi.panelOpenScreen)
+                pluginApi?.closePanel(pluginApi?.panelOpenScreen)
             }
         }
     }
@@ -63,8 +63,8 @@ Item {
     function shufflePlayback() {
         shuffleState = !shuffleState
         shuffle.command = ["curl", "-X", "PUT", "https://api.spotify.com/v1/me/player/shuffle?state=" + shuffleState.toString() 
-            + ((pluginApi.pluginSettings.playerId !== "") ? "&device_id=" + pluginApi.pluginSettings.playerId : ""),
-            "-H", "Authorization: Bearer " + pluginApi.pluginSettings.accessToken]
+            + ((pluginApi?.pluginSettings?.playerId !== "") ? "&device_id=" + pluginApi?.pluginSettings?.playerId : ""),
+            "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken]
         shuffle.running = true
     }
 
@@ -81,7 +81,7 @@ Item {
         }
 
         onExited: (code, status) => {
-            ToastService.showNotice("Spotify Player", "Started playback")
+            ToastService.showNotice(pluginApi?.tr("panel.title"), pluginApi?.tr("panel.notif"))
             shuffle.running = true
         }
     }
@@ -96,8 +96,8 @@ Item {
             })
         
         playRequestProcess.command = ["curl", "-X", "PUT", "https://api.spotify.com/v1/me/player/play" 
-            + ((pluginApi.pluginSettings.playerId !== "") ? "?device_id=" + pluginApi.pluginSettings.playerId : ""), 
-            "-H", "Authorization: Bearer " + pluginApi.pluginSettings.accessToken,
+            + ((pluginApi?.pluginSettings?.playerId !== "") ? "?device_id=" + pluginApi?.pluginSettings?.playerId : ""), 
+            "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken,
             "--json", requestBody]
         playRequestProcess.running = true
     }
@@ -130,14 +130,14 @@ Item {
 
     function searchForQuery(query) {
         if (query !== "") {
-            searchProcess.command = ["curl", "-H", "Authorization: Bearer " + pluginApi.pluginSettings.accessToken, "https://api.spotify.com/v1/search?q=" + encodeURIComponent(query) + "&type=album%2Cplaylist%2Ctrack"]
+            searchProcess.command = ["curl", "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken, "https://api.spotify.com/v1/search?q=" + encodeURIComponent(query) + "&type=album%2Cplaylist%2Ctrack"]
             searchProcess.running = true
         }
     }
 
     Process {
         id: fetchPlaylistsProcess
-        command: ["curl", "https://api.spotify.com/v1/me/playlists", "-H", "Authorization: Bearer " + pluginApi.pluginSettings.accessToken]
+        command: ["curl", "https://api.spotify.com/v1/me/playlists", "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken]
 
         stdout: StdioCollector {
             onStreamFinished: {
@@ -174,7 +174,7 @@ Item {
                     spacing: Style.marginL
                     
                     NText {
-                        text: "Spotify Player"
+                        text: pluginApi?.tr("panel.title")
                         pointSize: Style.fontSizeL
                         font.weight: Font.Bold
                         color: Color.mOnSurface
@@ -201,7 +201,7 @@ Item {
                             
                         NText {
                             pointSize: Style.fontSizeM
-                            text: "Search"
+                            text: pluginApi?.tr("panel.search")
                             color: searchArea.containsMouse ? Color.mSurfaceVariant : !(root.playlistViewActive) ? Color.mSurfaceVariant : Color.mOnSurface
                         }
                     }
@@ -237,7 +237,7 @@ Item {
                             
                         NText {
                             pointSize: Style.fontSizeM
-                            text: "Playlist"
+                            text: pluginApi?.tr("panel.playlist")
                             color: playlistArea.containsMouse ? Color.mSurfaceVariant : root.playlistViewActive ? Color.mSurfaceVariant : Color.mOnSurface
 
                         }
@@ -255,7 +255,7 @@ Item {
 
                 Item { Layout.fillWidth: true }
 
-                NText { text: "Shuffle" }
+                NText { text: pluginApi?.tr("panel.shuffle") }
 
                 NToggle {
                     checked: root.shuffleState
@@ -286,7 +286,7 @@ Item {
                     NTextInput {
                         id: searchField
                         Layout.fillWidth: true
-                        placeholderText: "Search..."
+                        placeholderText: pluginApi?.tr("panel.search_placeholder")
 
                         onTextChanged: searchDebounce.restart()
                     }
@@ -312,7 +312,7 @@ Item {
 
                         NText {
                             Layout.alignment: Qt.AlignHCenter
-                            text: "Search"
+                            text: pluginApi?.tr("panel.search")
                             pointSize: Style.fontSizeL
                             font.weight: Font.Medium
                             color: Color.mPrimary
@@ -320,7 +320,7 @@ Item {
 
                         NText {
                             Layout.alignment: Qt.AlignHCenter
-                            text: "Try searching something to get started."
+                            text: pluginApi?.tr("panel.search_hint")
                             pointSize: Style.fontSizeM
                             color: Color.mOnSurfaceVariant
                             horizontalAlignment: Text.AlignHCenter

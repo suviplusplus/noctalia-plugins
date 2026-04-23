@@ -11,7 +11,7 @@ ColumnLayout {
 
     Process {
         id: callbackServer
-        command: ["python3", pluginApi.pluginDir + "/callback_server.py", pluginApi.pluginSettings.callbackPort.toString()]
+        command: ["python3", pluginApi?.pluginDir + "/callback_server.py", pluginApi?.pluginSettings?.callbackPort.toString()]
         stdout: SplitParser {
             onRead: result => {
                 const [code, state, error] = result.split(":")
@@ -37,7 +37,7 @@ ColumnLayout {
 
     Process {
         id: getAvailableDevices
-        command: ["curl", "https://api.spotify.com/v1/me/player/devices", "-H", "Authorization: Bearer " + pluginApi.pluginSettings.accessToken]
+        command: ["curl", "https://api.spotify.com/v1/me/player/devices", "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken]
 
         stdout: StdioCollector {
             onStreamFinished: {
@@ -85,15 +85,15 @@ ColumnLayout {
 
     Component.onCompleted: {
         Logger.i("spotify-player", "Settings UI loaded")
-        pluginApi.mainInstance.refreshAccessToken()
+        pluginApi?.mainInstance.refreshAccessToken()
     }
 
     // Text input
     NTextInput {
         Layout.fillWidth: true
-        label: "Client ID"
-        description: "The Spotify API client ID"
-        placeholderText: "Enter Client ID..."
+        label: pluginApi?.tr("settings.cid")
+        description: pluginApi?.tr("settings.cid_desc")
+        placeholderText: pluginApi?.tr("settings.cid_placeholder")
         text: root.editClientId
         onTextChanged: root.editClientId = text
     }
@@ -101,9 +101,9 @@ ColumnLayout {
     // Text input
     NTextInput {
         Layout.fillWidth: true
-        label: "Client Secret"
-        description: "The Spotify API client secret"
-        placeholderText: "Enter Client Secret..."
+        label: pluginApi?.tr("settings.secret")
+        description: pluginApi?.tr("settings.secret_desc")
+        placeholderText: pluginApi?.tr("settings.secret_placeholder")
         text: root.editClientSecret
         onTextChanged: root.editClientSecret = text
     }
@@ -111,7 +111,7 @@ ColumnLayout {
     RowLayout {
 
         NText {
-            text: "Callback port"
+            text: pluginApi?.tr("settings.callback")
         }
 
         NSpinBox {
@@ -122,30 +122,30 @@ ColumnLayout {
         }
 
         NText {
-            text: "Ensure this port is not already in use."
+            text: pluginApi?.tr("settings.callback_warning")
             pointSize: Style.fontSizeS
         }
     }
     
 
     NText {
-        text: "Once you've entered the client ID and client secret, click here to generate an access token for your Spotify account."
+        text: pluginApi?.tr("settings.tokengen_info")
         wrapMode: Text.WordWrap
         Layout.fillWidth: true
     }
 
     NButton {
-        text: "Request token"
+        text: pluginApi?.tr("settings.tokengen_btn")
         onClicked: startAuth()
     }
 
     NText {
-        text: "With a valid API token, you can press this button to fetch all of your currently available devices on Spotify."
+        text: pluginApi?.tr("settings.devicelist_info")
         wrapMode: Text.WordWrap
         Layout.fillWidth: true
     }
     NButton {
-        text: "Get devices"
+        text: pluginApi?.tr("settings.devicelist_btn")
         onClicked: getAvailableDevices.running = true
     }
 
@@ -167,9 +167,9 @@ ColumnLayout {
     // Text input
     NTextInput {
         Layout.fillWidth: true
-        label: "Player ID"
-        description: "The ID of the player you want to control."
-        placeholderText: "Enter Player ID or leave blank for default..."
+        label: pluginApi?.tr("settings.pid")
+        description: pluginApi?.tr("settings.pid_desc")
+        placeholderText: pluginApi?.tr("settings.pid_placeholder")
         inputMethodHints: Qt.ImhDigitsOnly
         text: root.editPlayerId
         onTextChanged: root.editPlayerId = text
@@ -196,11 +196,11 @@ ColumnLayout {
         const state = randomString(16)
         expectedState = state
         const scope = "user-read-playback-state user-modify-playback-state playlist-read-private"
-        const redirectUri = "http://127.0.0.1:" + pluginApi.pluginSettings.callbackPort + "/callback"
+        const redirectUri = "http://127.0.0.1:" + pluginApi?.pluginSettings?.callbackPort + "/callback"
 
         const params = new URLSearchParams({
             response_type: "code",
-            client_id: pluginApi.pluginSettings.clientId,
+            client_id: pluginApi?.pluginSettings?.clientId,
             scope: scope,
             redirect_uri: redirectUri,
             state: state
@@ -210,7 +210,7 @@ ColumnLayout {
 
         Logger.i("spotify-player", "Starting auth")
 
-        callbackServer.command = ["python3", pluginApi.pluginDir + "/callback_server.py", pluginApi.pluginSettings.callbackPort.toString()]
+        callbackServer.command = ["python3", pluginApi?.pluginDir + "/callback_server.py", pluginApi?.pluginSettings?.callbackPort.toString()]
         callbackServer.running = true
         authProcess.command = ["xdg-open", url]
         authProcess.running = true
@@ -219,7 +219,7 @@ ColumnLayout {
     function exchangeCodeForToken(code) {
         Logger.i("spotify-player", "Found code:", code)
 
-        const credentials = Qt.btoa(pluginApi.pluginSettings.clientId + ":" + pluginApi.pluginSettings.clientSecret)
+        const credentials = Qt.btoa(pluginApi?.pluginSettings?.clientId + ":" + pluginApi?.pluginSettings?.clientSecret)
 
         const xhr = new XMLHttpRequest()
         xhr.open("POST", "https://accounts.spotify.com/api/token")
@@ -236,7 +236,7 @@ ColumnLayout {
         }
         xhr.send(new URLSearchParams({
             code: code,
-            redirect_uri: "http://127.0.0.1:" + pluginApi.pluginSettings.callbackPort + "/callback",
+            redirect_uri: "http://127.0.0.1:" + pluginApi?.pluginSettings?.callbackPort + "/callback",
             grant_type: "authorization_code"
         }).toString())
     }

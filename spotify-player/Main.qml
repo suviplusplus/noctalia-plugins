@@ -9,7 +9,7 @@ Item {
 
     function refreshAccessToken() {
 
-        const credentials = Qt.btoa(pluginApi.pluginSettings.clientId + ":" + pluginApi.pluginSettings.clientSecret)
+        const credentials = Qt.btoa(pluginApi?.pluginSettings?.clientId + ":" + pluginApi?.pluginSettings?.clientSecret)
 
         const xhr = new XMLHttpRequest()
         xhr.open("POST", "https://accounts.spotify.com/api/token")
@@ -23,12 +23,12 @@ Item {
                     pluginApi.pluginSettings.refreshToken = data.refresh_token
                 }
                 pluginApi.pluginSettings.tokenExpiresAt = Date.now() + (data.expires_in * 1000)
-                pluginApi.saveSettings()
+                pluginApi?.saveSettings()
                 Logger.i("spotify-player", "Token refreshed successfully")
             }
         }
         xhr.send(new URLSearchParams({
-            refresh_token: pluginApi.pluginSettings.refreshToken,
+            refresh_token: pluginApi?.pluginSettings?.refreshToken,
             grant_type: "refresh_token"
         }).toString())
     }

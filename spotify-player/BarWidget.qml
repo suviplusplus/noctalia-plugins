@@ -66,11 +66,11 @@ Item {
 
         onClicked: {
             if (pluginApi) {
-                if (clock.date.getTime() > pluginApi.pluginSettings.tokenExpiresAt) {
+                if (clock.date.getTime() > pluginApi?.pluginSettings?.tokenExpiresAt) {
                     Logger.i("spotify-player", "Token expired, refreshing...")
-                    pluginApi.mainInstance.refreshAccessToken()
+                    pluginApi?.mainInstance.refreshAccessToken()
                 }
-                pluginApi.openPanel(root.screen, root)
+                pluginApi?.openPanel(root.screen, root)
             }
         }
     }
