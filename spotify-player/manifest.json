@@ -2,7 +2,7 @@
     "id": "spotify-player",
     "name": "Spotify Player",
     "version": "1.0.0",
-    "minNoctaliaVersion": "3.6.0",
+    "minNoctaliaVersion": "4.7.6",
     "author": "suvi",
     "license": "GPL 3.0",
     "repository": "https://github.com/suviplusplus/noctalia-plugins",
