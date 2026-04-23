@@ -5,7 +5,7 @@
     "minNoctaliaVersion": "4.7.6",
     "author": "suvi",
     "license": "GPL 3.0",
-    "repository": "https://github.com/suviplusplus/noctalia-plugins",
+    "repository": "https://github.com/noctalia-dev/noctalia-plugins",
     "description": "Control spotify_player from a bar widget.",
     "entryPoints": {
         "barWidget": "BarWidget.qml",
