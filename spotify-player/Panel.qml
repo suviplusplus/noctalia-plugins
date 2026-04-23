@@ -31,6 +31,8 @@ Item {
 
     property bool closeAfterShuffle: false
 
+    property string nowPlaying: ""
+
     Process {
         id: readShuffleState
         command: ["curl", "https://api.spotify.com/v1/me/player", "-H", "Authorization: Bearer " + pluginApi?.pluginSettings?.accessToken]
@@ -81,19 +83,20 @@ Item {
         }
 
         onExited: (code, status) => {
-            ToastService.showNotice(pluginApi?.tr("panel.title"), pluginApi?.tr("panel.notif"))
+            ToastService.showNotice(pluginApi?.tr("panel.notif"), nowPlaying, "music")
             shuffle.running = true
         }
     }
 
-    function sendPlayRequest(uri, type) {
-        const requestBody = (type === "track")
+    function sendPlayRequest(data) {
+        const requestBody = (data.type === "track")
             ? JSON.stringify({
-                uris: [uri]
+                uris: [data.uri]
             })
             : JSON.stringify({
-                context_uri: uri
+                context_uri: data.uri
             })
+        nowPlaying = (data.type !== "playlist") ? data.artists[0].name + " - " + data.name : data.name
         
         playRequestProcess.command = ["curl", "-X", "PUT", "https://api.spotify.com/v1/me/player/play" 
             + ((pluginApi?.pluginSettings?.playerId !== "") ? "?device_id=" + pluginApi?.pluginSettings?.playerId : ""), 
@@ -367,7 +370,7 @@ Item {
                                 hoverEnabled: true
                                 onClicked: {
                                     searchResultsView.selectedIndex = index
-                                    sendPlayRequest(modelData.uri, modelData.type)
+                                    sendPlayRequest(modelData)
                                 }
                                 onEntered: hovering = true
                                 onExited: hovering = false
@@ -415,7 +418,7 @@ Item {
                             hoverEnabled: true
                             onClicked: {
                                 playlistList.selectedIndex = index
-                                sendPlayRequest(modelData.uri, modelData.type)
+                                sendPlayRequest(modelData)
                             }
                             onEntered: hovering = true
                             onExited: hovering = false
