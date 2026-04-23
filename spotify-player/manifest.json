@@ -7,6 +7,7 @@
     "license": "GPL 3.0",
     "repository": "https://github.com/noctalia-dev/noctalia-plugins",
     "description": "Control spotify_player from a bar widget.",
+    "tags": ["Bar", "Panel", "Music"],
     "entryPoints": {
         "barWidget": "BarWidget.qml",
         "panel": "Panel.qml",
