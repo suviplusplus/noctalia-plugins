@@ -114,7 +114,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 const result = JSON.parse(text)
-                searchResults = [...result.tracks.items, ...result.albums.items, result.playlists.items]
+                searchResults = [...result.tracks.items, ...result.albums.items, ...result.playlists.items.filter(Boolean)]
             }
         }
         
@@ -234,7 +234,7 @@ Item {
                             
                         NIcon {
                             Layout.alignment: Qt.AlignVCenter
-                            icon: "music"
+                            icon: "playlist"
                             color: playlistArea.containsMouse ? Color.mSurfaceVariant : root.playlistViewActive ? Color.mSurfaceVariant : Color.mOnSurface
                         }
                             
@@ -354,6 +354,14 @@ Item {
                                 anchors.fill: parent
                                 anchors.margins: Style.marginM
 
+                                NIcon {
+                                	icon: (modelData.type === "track")
+                                		? "music"
+                                		: (modelData.type === "album")
+                                		? "disc"
+                                		: "playlist"
+                                }
+
                                 NText {
                                     text: modelData.name
                                 }
@@ -361,7 +369,8 @@ Item {
                                 Item { Layout.fillWidth: true }
 
                                 NText {
-                                    text: modelData.artists[0]?.name || modelData.owner.display_name
+                                    text: (modelData.artists) ? modelData.artists[0].name : modelData.owner.display_name
+                                    
                                 }
                             }
 
